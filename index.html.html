@@ -2,175 +2,379 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
-<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gym</title>
+
 <style>
-  * { box-sizing: border-box; }
-  :root { color-scheme: light; }
-  body {
-    margin: 0; min-height: 100svh; background: #fff; color: #171717;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  main {
-    min-height: 100svh; width: min(100%, 430px); margin: auto;
-    padding: max(24px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom));
-    display: flex; flex-direction: column; align-items: center;
-  }
-  .home {
-    flex: 1; width: 100%; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 36px;
-  }
-  .gym-button {
-    width: 156px; height: 156px; border: 0; border-radius: 50%;
-    background: #f5f5f5; display: grid; place-items: center; position: relative;
-    box-shadow: 0 8px 28px rgba(0,0,0,.055);
-    cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-    animation: float 3s ease-in-out infinite;
-    transition: background .2s ease, transform .18s ease, box-shadow .2s ease;
-  }
-  .gym-button:active { transform: scale(.93); }
-  .gym-button.done { background: #e1f5e8; box-shadow: 0 8px 28px rgba(35,130,70,.10); animation: none; }
-  .arm { font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif; font-size: 70px; line-height: 1; }
-  .tick {
-    display: none; position: absolute; right: 3px; bottom: 3px; width: 37px; height: 37px;
-    border-radius: 50%; background: #24934f; color: white; border: 3px solid white;
-    font-size: 22px; font-weight: 600; align-items: center; justify-content: center;
-  }
-  .done .tick { display: flex; animation: pop .22s ease-out; }
-  .calendar-button {
-    border: 1px solid #e9e9e9; background: #fff; border-radius: 999px;
-    padding: 13px 29px; color: #222; font-size: 15px; font-weight: 500;
-    font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent;
-  }
-  .calendar-button:active { background: #f6f6f6; }
-  .calendar-view { display: none; width: 100%; padding-top: 22px; }
-  .calendar-view.visible { display: block; }
-  .home.hidden { display: none; }
-  .cal-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
-  .back {
-    background: none; border: 0; padding: 8px 8px 8px 0; font: inherit; font-size: 15px; color: #555; cursor: pointer;
-  }
-  .month-controls { display: flex; align-items: center; gap: 15px; }
-  .month-name { min-width: 128px; text-align: center; font-size: 16px; font-weight: 600; text-transform: capitalize; }
-  .month-arrow { background: none; border: 0; padding: 4px; color: #444; font-size: 24px; cursor: pointer; }
-  .weekdays, .days { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; }
-  .weekdays { margin-bottom: 10px; }
-  .weekdays div { color: #999; font-size: 12px; padding: 8px 0; }
-  .day {
-    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-    position: relative; font-size: 14px; color: #262626;
-  }
-  .day span {
-    width: 36px; height: 36px; border-radius: 50%; display: flex;
-    align-items: center; justify-content: center;
-  }
-  .day.outside { color: #c9c9c9; }
-  .day.today span { outline: 1px solid #d0d0d0; outline-offset: -1px; }
-  .day.trained span { background: #e1f5e8; color: #16733a; font-weight: 650; }
-  .day.trained span::after { content: "✓"; font-size: 11px; position: absolute; right: 4px; bottom: 2px; color: #16733a; }
-  .note { margin-top: 22px; color: #999; font-size: 12px; text-align: center; }
-  @keyframes float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-5px) rotate(1deg); } }
-  @keyframes pop { from { transform: scale(.65); } to { transform: scale(1); } }
-  @media (prefers-reduced-motion: reduce) { .gym-button { animation: none; } * { transition: none !important; } }
+}
+
+.contenedor {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-gym {
+    width: 155px;
+    height: 155px;
+    border: none;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    animation: flotar 3s ease-in-out infinite;
+    transition: 0.2s;
+}
+
+.boton-gym:active {
+    transform: scale(0.92);
+}
+
+.boton-gym.marcado {
+    background: #e2f5e8;
+    animation: none;
+}
+
+.emoji {
+    font-family: "Apple Color Emoji";
+    font-size: 70px;
+}
+
+.tick {
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #24a148;
+    color: white;
+    border: 3px solid white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.marcado .tick {
+    display: flex;
+}
+
+.calendario-boton {
+    margin-top: 35px;
+    padding: 13px 28px;
+    border-radius: 30px;
+    border: 1px solid #e8e8e8;
+    background: white;
+    font-size: 15px;
+    color: #222;
+    cursor: pointer;
+}
+
+.calendario-boton:active {
+    background: #f5f5f5;
+}
+
+.calendario {
+    display: none;
+    width: 90%;
+    max-width: 400px;
+    padding-top: 30px;
+}
+
+.calendario.visible {
+    display: block;
+}
+
+.volver {
+    border: none;
+    background: none;
+    font-size: 15px;
+    color: #555;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+.mes {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.dias-semana,
+.dias {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.dias-semana div {
+    color: #999;
+    font-size: 12px;
+    padding-bottom: 12px;
+}
+
+.dia {
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dia span {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dia.entrenado span {
+    background: #e2f5e8;
+    color: #17833f;
+    font-weight: bold;
+}
+
+.dia.entrenado span::after {
+    content: "✓";
+    font-size: 10px;
+    position: absolute;
+    margin-left: 22px;
+    margin-top: 22px;
+}
+
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
 </style>
 </head>
-<body>
-<main>
-  <section class="home" id="home">
-    <button class="gym-button" id="gymButton" aria-label="Marcar gimnasio de hoy" aria-pressed="false">
-      <span class="arm" aria-hidden="true">💪</span>
-      <span class="tick" aria-hidden="true">✓</span>
-    </button>
-    <button class="calendar-button" id="openCalendar">Calendario</button>
-  </section>
 
-  <section class="calendar-view" id="calendarView" aria-label="Calendario de gimnasio">
-    <div class="cal-top">
-      <button class="back" id="back">‹ Volver</button>
-      <div class="month-controls">
-        <button class="month-arrow" id="prev" aria-label="Mes anterior">‹</button>
-        <div class="month-name" id="monthName"></div>
-        <button class="month-arrow" id="next" aria-label="Mes siguiente">›</button>
-      </div>
+<body>
+
+<div class="contenedor">
+
+    <div id="inicio">
+
+        <button class="boton-gym" id="botonGym">
+            <span class="emoji">💪</span>
+            <span class="tick">✓</span>
+        </button>
+
+        <button class="calendario-boton" id="abrirCalendario">
+            Calendario
+        </button>
+
     </div>
-    <div class="weekdays" aria-hidden="true">
-      <div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div><div>D</div>
+
+
+    <div class="calendario" id="calendario">
+
+        <button class="volver" id="volver">
+            ‹ Volver
+        </button>
+
+        <div class="mes" id="nombreMes"></div>
+
+        <div class="dias-semana">
+            <div>L</div>
+            <div>M</div>
+            <div>X</div>
+            <div>J</div>
+            <div>V</div>
+            <div>S</div>
+            <div>D</div>
+        </div>
+
+        <div class="dias" id="dias"></div>
+
     </div>
-    <div class="days" id="days"></div>
-    <div class="note">Los días con un tic son días de gimnasio.</div>
-  </section>
-</main>
+
+</div>
+
+
 <script>
-  const KEY = "gym-days-v2";
-  const now = new Date();
-  now.setHours(12,0,0,0);
-  let month = new Date(now.getFullYear(), now.getMonth(), 1);
-  let trained = [];
-  try {
-    const saved = JSON.parse(localStorage.getItem(KEY) || "[]");
-    if (Array.isArray(saved)) trained = [...new Set(saved.filter(v => /^\d{4}-\d{2}-\d{2}$/.test(v)))];
-  } catch (_) {}
-  const keyOf = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-  function renderButton() {
-    const done = trained.includes(keyOf(now));
-    document.getElementById("gymButton").classList.toggle("done", done);
-    document.getElementById("gymButton").setAttribute("aria-pressed", String(done));
-  }
-  function renderCalendar() {
-    document.getElementById("monthName").textContent = month.toLocaleDateString("es-ES", {month:"long", year:"numeric"});
-    const grid = document.getElementById("days");
-    grid.innerHTML = "";
-    const first = new Date(month.getFullYear(), month.getMonth(), 1);
-    const offset = (first.getDay()+6)%7;
-    const start = new Date(first);
-    start.setDate(first.getDate()-offset);
-    for (let i=0; i<42; i++) {
-      const d = new Date(start);
-      d.setDate(start.getDate()+i);
-      const key = keyOf(d);
-      const cell = document.createElement("div");
-      cell.className = "day";
-      if (d.getMonth() !== month.getMonth()) cell.classList.add("outside");
-      if (key === keyOf(now)) cell.classList.add("today");
-      if (trained.includes(key)) cell.classList.add("trained");
-      const number = document.createElement("span");
-      number.textContent = d.getDate();
-      cell.appendChild(number);
-      grid.appendChild(cell);
+
+const boton = document.getElementById("botonGym");
+const calendario = document.getElementById("calendario");
+const inicio = document.getElementById("inicio");
+
+const hoy = new Date();
+
+function obtenerClave(fecha) {
+    return fecha.getFullYear() + "-" +
+        String(fecha.getMonth() + 1).padStart(2, "0") + "-" +
+        String(fecha.getDate()).padStart(2, "0");
+}
+
+let entrenamientos =
+    JSON.parse(localStorage.getItem("entrenamientos")) || [];
+
+
+function actualizarBoton() {
+
+    const claveHoy = obtenerClave(hoy);
+
+    if (entrenamientos.includes(claveHoy)) {
+        boton.classList.add("marcado");
+    } else {
+        boton.classList.remove("marcado");
     }
-    document.getElementById("prev").disabled = month.getFullYear() === 2000 && month.getMonth() === 0;
-    document.getElementById("next").disabled = month.getFullYear() === now.getFullYear() && month.getMonth() === now.getMonth();
-    document.getElementById("prev").style.opacity = document.getElementById("prev").disabled ? ".25" : "1";
-    document.getElementById("next").style.opacity = document.getElementById("next").disabled ? ".25" : "1";
-  }
-  document.getElementById("gymButton").addEventListener("click", () => {
-    const key = keyOf(now);
-    if (trained.includes(key)) trained = trained.filter(v => v !== key);
-    else trained.push(key);
-    localStorage.setItem(KEY, JSON.stringify(trained));
-    renderButton();
-  });
-  document.getElementById("openCalendar").addEventListener("click", () => {
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("calendarView").classList.add("visible");
-    renderCalendar();
-  });
-  document.getElementById("back").addEventListener("click", () => {
-    document.getElementById("calendarView").classList.remove("visible");
-    document.getElementById("home").classList.remove("hidden");
-  });
-  document.getElementById("prev").addEventListener("click", () => {
-    month = new Date(month.getFullYear(), month.getMonth()-1, 1);
-    renderCalendar();
-  });
-  document.getElementById("next").addEventListener("click", () => {
-    if (month.getFullYear() === now.getFullYear() && month.getMonth() === now.getMonth()) return;
-    month = new Date(month.getFullYear(), month.getMonth()+1, 1);
-    renderCalendar();
-  });
-  renderButton();
+}
+
+
+boton.addEventListener("click", function() {
+
+    const claveHoy = obtenerClave(hoy);
+
+    if (entrenamientos.includes(claveHoy)) {
+
+        entrenamientos =
+            entrenamientos.filter(dia => dia !== claveHoy);
+
+    } else {
+
+        entrenamientos.push(claveHoy);
+
+    }
+
+    localStorage.setItem(
+        "entrenamientos",
+        JSON.stringify(entrenamientos)
+    );
+
+    actualizarBoton();
+
+});
+
+
+document.getElementById("abrirCalendario")
+.addEventListener("click", function() {
+
+    inicio.style.display = "none";
+    calendario.classList.add("visible");
+
+    crearCalendario();
+
+});
+
+
+document.getElementById("volver")
+.addEventListener("click", function() {
+
+    calendario.classList.remove("visible");
+    inicio.style.display = "flex";
+    inicio.style.flexDirection = "column";
+    inicio.style.alignItems = "center";
+
+});
+
+
+function crearCalendario() {
+
+    const nombreMes =
+        document.getElementById("nombreMes");
+
+    const dias =
+        document.getElementById("dias");
+
+    const año = hoy.getFullYear();
+    const mes = hoy.getMonth();
+
+    nombreMes.textContent =
+        hoy.toLocaleDateString("es-ES", {
+            month: "long",
+            year: "numeric"
+        });
+
+    dias.innerHTML = "";
+
+    const primerDia =
+        new Date(año, mes, 1);
+
+    const ultimoDia =
+        new Date(año, mes + 1, 0);
+
+    let inicioSemana =
+        (primerDia.getDay() + 6) % 7;
+
+    for (let i = 0; i < inicioSemana; i++) {
+
+        const hueco = document.createElement("div");
+
+        dias.appendChild(hueco);
+
+    }
+
+    for (
+        let dia = 1;
+        dia <= ultimoDia.getDate();
+        dia++
+    ) {
+
+        const fecha =
+            new Date(año, mes, dia);
+
+        const elemento =
+            document.createElement("div");
+
+        elemento.className = "dia";
+
+        const numero =
+            document.createElement("span");
+
+        numero.textContent = dia;
+
+        elemento.appendChild(numero);
+
+        if (
+            entrenamientos.includes(
+                obtenerClave(fecha)
+            )
+        ) {
+
+            elemento.classList.add("entrenado");
+
+        }
+
+        dias.appendChild(elemento);
+
+    }
+
+}
+
+
+actualizarBoton();
+
 </script>
+
 </body>
 </html>
